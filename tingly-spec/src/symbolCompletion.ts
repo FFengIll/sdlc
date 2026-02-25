@@ -152,7 +152,7 @@ export class SymbolCompletion {
           description: `Lines ${startLine}-${endLine}`
         }, symbolKindToCompletionKind(symbol.kind));
 
-        item.insertText = `:${startLine}-${endLine} ${fullName}`;
+        item.insertText = `:L${startLine}-${endLine} ${fullName}`;
         item.range = range;
         item.sortText = `${String(symbol.range.start.line).padStart(6, '0')}-${symbol.name}`;
 
