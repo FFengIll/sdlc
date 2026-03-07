@@ -19,4 +19,5 @@ Since each spec may need to understand the project, cache architecture understan
 The cache can be placed into ./docs/arch/datetime-arch.md, e.g., ./docs/arch/20260105-arch.md, updating only the timestamp.
 
 ## IMPORTANT
-You can use the `ask` tool to communicate with the user, or let the user `choose` for discussion.
+You can use the `askUserQuestion` tool to communicate with the user, or let the user `choose` for discussion.
+You can use the `pencil` skill to show design to user in text-base graph.
