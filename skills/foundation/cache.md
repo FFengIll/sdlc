@@ -26,9 +26,12 @@ Architecture documentation is cached in `docs/arch/` to avoid repeated code anal
 
 ```
 docs/arch/
-├── overview-arch.md              # Project-level (7d TTL)
-├── [module]-arch.md              # Module-level (3d TTL)
-├── [module]/[sub]-arch.md        # Component-level (1d TTL)
+├── main/                         # Branch-aware caches
+│   ├── overview-arch.md
+│   ├── [module]-arch.md
+│   └── [module]/[sub]-arch.md
+├── feature-a/
+│   └── [module]-arch.md
 └── cache-metadata.json           # Cache metadata
 ```
 
@@ -36,23 +39,25 @@ docs/arch/
 
 **Priority Order (most specific first):**
 
-1. **Component**: `docs/arch/[module]/[sub]-arch.md` (12h TTL)
-2. **Module**: `docs/arch/[module]-arch.md` (3d TTL)
-3. **Project**: `docs/arch/overview-arch.md` (7d TTL)
+1. **Component**: `docs/arch/{branch}/[module]/[sub]-arch.md` (12h TTL)
+2. **Module**: `docs/arch/{branch}/[module]-arch.md` (3d TTL)
+3. **Project**: `docs/arch/{branch}/overview-arch.md` (7d TTL)
+4. **Fallback**: `docs/arch/main/[file].md` (if branch cache missing)
 
 **Examples:**
 
 ```bash
 # For auth module work
-docs/arch/auth/login/oauth-arch.md  # Most specific
-docs/arch/auth/login-arch.md
-docs/arch/auth-arch.md
-docs/arch/overview-arch.md         # Fallback
+docs/arch/feature-a/auth/login/oauth-arch.md  # Most specific
+docs/arch/feature-a/auth/login-arch.md
+docs/arch/feature-a/auth-arch.md
+docs/arch/main/auth-arch.md                  # Fallback to main
 
 # Use glob to find relevant cache
 docs/arch/**/*-arch.md
 docs/arch/auth-arch.md
 docs/arch/auth/**/*-arch.md
+docs/arch/main/*-arch.md                     # Explicit main branch
 ```
 
 ### Cache Levels
@@ -74,6 +79,7 @@ Each cache file includes:
 **Last Updated**: YYYY-MM-DD
 **Cache Level**: [Project|Module|Component|Detailed]
 **Expires**: YYYY-MM-DD
+**Branch**: [branch-name]
 **Hash**: [git commit hash]
 
 ## Overview
@@ -112,9 +118,10 @@ if [ $(($(date +%s) - cache_timestamp)) -gt $((ttl_seconds)) ]; then
     echo "Cache expired, regenerate"
 fi
 
-# Or compare git hash
-cached_hash=$(grep "Hash:" docs/arch/module-arch.md)
+# Compare git hash within branch context
+cached_hash=$(grep "Hash:" docs/arch/{branch}/module-arch.md)
 current_hash=$(git rev-parse HEAD)
+current_branch=$(git branch --show-current)
 if [ "$cached_hash" != "$current_hash" ]; then
     echo "Code changed, invalidate cache"
 fi

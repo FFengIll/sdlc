@@ -37,12 +37,12 @@ Understand generates architecture cache at different levels based on scope:
 
 | Level | Scope Pattern | TTL Reference | Output Path |
 |-------|---------------|---------------|-------------|
-| **Project** | No scope (entire project) | ~30 days | `docs/arch/overview-arch.md` |
-| **Module** | `src/[module]` or `[module]/` | ~14 days | `docs/arch/[module]-arch.md` |
-| **Sub-module** | `src/[module]/[sub]` | ~7 days | `docs/arch/[module]/[sub]-arch.md` |
-| **Component** | Deep dive into specific component | ~3 days | `docs/arch/[module]/[sub]/[comp]-arch.md` |
+| **Project** | No scope (entire project) | ~30 days | `docs/arch/{branch}/overview-arch.md` |
+| **Module** | `src/[module]` or `[module]/` | ~14 days | `docs/arch/{branch}/[module]-arch.md` |
+| **Sub-module** | `src/[module]/[sub]` | ~7 days | `docs/arch/{branch}/[module]/[sub]-arch.md` |
+| **Component** | Deep dive into specific component | ~3 days | `docs/arch/{branch}/[module]/[sub]/[comp]-arch.md` |
 
-> **Note**: TTL values are reference guidelines only. Actual freshness depends on code changes.
+> `{branch}` is the current git branch. Falls back to `main/` if branch cache doesn't exist.
 
 ### Cache File Format
 
@@ -54,6 +54,7 @@ Each cache file includes:
 **Last Updated**: YYYY-MM-DD
 **Cache Level**: Project|Module|Sub-module|Component
 **Expires**: YYYY-MM-DD (~X days)
+**Branch**: [branch-name]
 **Hash**: [git commit hash]
 
 ## Overview
@@ -74,11 +75,15 @@ Each cache file includes:
 Before generating new cache, understand checks for existing cache:
 
 ```bash
+# Get current branch
+BRANCH=$(git branch --show-current)
+
 # Priority order (most specific first)
-docs/arch/[module]/[sub]/[comp]-arch.md  # Component level
-docs/arch/[module]/[sub]-arch.md          # Sub-module level
-docs/arch/[module]-arch.md                # Module level
-docs/arch/overview-arch.md                # Project level
+docs/arch/${BRANCH}/[module]/[sub]/[comp]-arch.md  # Component level
+docs/arch/${BRANCH}/[module]/[sub]-arch.md          # Sub-module level
+docs/arch/${BRANCH}/[module]-arch.md                # Module level
+docs/arch/${BRANCH}/overview-arch.md                # Project level
+docs/arch/main/[module]-arch.md                       # Fallback to main
 ```
 
 If cache exists and is fresh (within TTL, no code changes), understand reuses it instead of regenerating.
@@ -89,10 +94,12 @@ Cache is invalidated when:
 - TTL has expired (reference only, check actual code changes)
 - Git hash doesn't match current HEAD
 - Files in scope have been modified
+- Branch has changed (cache path differs)
 
 ```bash
 # Check if cache is stale
-cache_hash=$(grep "Hash:" docs/arch/auth-arch.md)
+BRANCH=$(git branch --show-current)
+cache_hash=$(grep "Hash:" docs/arch/${BRANCH}/auth-arch.md)
 current_hash=$(git rev-parse HEAD)
 last_change=$(git log -1 --format=%cd --date=short -- src/auth/)
 
@@ -127,6 +134,7 @@ fi
    - Save to `docs/arch/[YYYYMMDD]-[scope]-arch.md`
    - Include hash for change detection
    - Set appropriate TTL based on level
+   - Use branch directory for isolation
    - Update `docs/arch/cache-metadata.json` if needed
 
 ## Scope Options
@@ -148,6 +156,7 @@ fi
 **Last Updated**: YYYY-MM-DD
 **Cache Level**: Project|Module|Sub-module|Component
 **Expires**: YYYY-MM-DD (~X days)
+**Branch**: [branch-name]
 **Hash**: [git commit hash]
 **Parent**: [parent-cache-file.md] (for sub-levels)
 
@@ -185,12 +194,12 @@ fi
 
 ```
 docs/arch/
-├── overview-arch.md              # Project level
-├── auth-arch.md                  # Module level
-├── auth/
-│   ├── login-arch.md             # Sub-module level
-│   └── providers/
-│       └── oauth-arch.md         # Component level
+├── main/
+│   ├── overview-arch.md          # Project level
+│   ├── auth-arch.md              # Module level
+│   └── auth/login-arch.md        # Sub-module level
+├── feature-a/
+│   └── auth-arch.md              # Branch-specific cache
 └── cache-metadata.json           # Cache metadata
 ```
 
@@ -215,6 +224,7 @@ Examples:
 - [ ] Dependencies mapped
 - [ ] Architecture cache saved to `docs/arch/`
 - [ ] Hash included for change detection
+- [ ] Branch directory used for cache isolation
 - [ ] Understanding report saved to `docs/understand/`
 
 ## Examples
@@ -226,7 +236,7 @@ Examples:
 ```
 
 Generates:
-- `docs/arch/overview-arch.md` - Project architecture cache (~30 days)
+- `docs/arch/main/overview-arch.md` - Project architecture cache (~30 days)
 - `docs/understand/20260308-full-project-understanding.md` - Full understanding report
 
 Covers:
@@ -242,7 +252,7 @@ Covers:
 ```
 
 Generates:
-- `docs/arch/auth-arch.md` - Auth module cache (~14 days)
+- `docs/arch/main/auth-arch.md` - Auth module cache (~14 days)
 - `docs/understand/20260308-auth-module-understanding.md` - Module understanding
 
 Focuses on:
@@ -258,7 +268,7 @@ Focuses on:
 ```
 
 Generates:
-- `docs/arch/auth/login-arch.md` - Login component cache (~7 days)
+- `docs/arch/main/auth/login-arch.md` - Login component cache (~7 days)
 - `docs/understand/20260308-login-understanding.md` - Detailed understanding
 
 Focuses on:
