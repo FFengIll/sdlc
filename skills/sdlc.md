@@ -51,6 +51,7 @@ Software Development Lifecycle management.
 
 | Type | Description | Workflow |
 |------|-------------|----------|
+| `minor` | Minor modifications (user-specified files) | **coding → test → commit** |
 | `quick` | Small changes | **understand → spec → coding → test → commit → pr** |
 | `feature` | New features | **understand → research → spec → coding → test → verify → commit → pr** |
 | `bugfix` | Bug fixes | **understand → debug → coding → test → verify → commit → pr** |
@@ -75,6 +76,7 @@ Software Development Lifecycle management.
 ## Workflows
 
 ```
+MINOR:    coding → test → commit
 QUICK:    understand → spec → coding → test → commit → pr
 FEATURE:  understand → research → spec → coding → test → verify → commit → pr
 BUGFIX:   understand → debug → coding → test → verify → commit → pr
@@ -86,9 +88,9 @@ RESEARCH: understand → research → doc → END
 ## Examples
 
 ```bash
-# Recommended: Start with understand and spec
-/sdlc understand
-/sdlc spec "Fix typo in header"
+# Minor workflow - smallest overhead, direct edits
+/sdlc start minor "Update button color"
+/sdlc next  # goes: coding → test → commit
 
 # Or use quick workflow (includes understand + spec)
 /sdlc start quick "Fix typo"

@@ -12,6 +12,7 @@
 
 | Type | Description | Initial Phase |
 |------|-------------|---------------|
+| **minor** | Minor modifications (user-specified) | coding |
 | **quick** | Small changes/hotfix | coding |
 | **feature** | New feature | research |
 | **bugfix** | Bug fix | debug |
@@ -21,6 +22,7 @@
 ## Phase Sequences
 
 ```
+MINOR:    coding → test → commit
 QUICK:    coding → test → commit → pr
 FEATURE:  research → spec → coding → test → verify → commit → pr
 BUGFIX:   debug → coding → test → verify → commit → pr
@@ -31,6 +33,7 @@ RESEARCH: research → doc → END
 ## Input Format
 
 ```bash
+/sdlc start minor "Update button color"
 /sdlc start quick "Fix typo"
 /sdlc start feature "User auth"
 /sdlc start bugfix "Fix login"

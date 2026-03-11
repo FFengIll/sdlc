@@ -94,6 +94,14 @@ skills/
 
 ## Available Workflows
 
+### Minor Modifications
+
+```
+coding → test → commit → END
+```
+
+Use for: Small, user-specified changes (UI tweaks, config updates, simple edits)
+
 ### Feature Development
 
 ```
@@ -217,6 +225,10 @@ All skills support natural language input. You can describe what you want in you
 ### Intent Detection
 
 The system automatically detects workflow type from natural language:
+
+**Minor indicators:**
+- "调整...", "修改...", "微调..."
+- "tweak", "adjust", "minor change"
 
 **Feature indicators:**
 - "做一个...", "实现...", "添加...", "新增..."
@@ -496,6 +508,9 @@ The `/cache` skill provides intelligent architecture caching at different detail
 Auto-create and manage branches based on workflow type:
 
 ```bash
+# Minor branch (no PR, direct commit)
+minor/{description}
+
 # Feature branch
 feature/{description}
 
@@ -508,6 +523,9 @@ refactor/{component-name}
 
 Example:
 ```bash
+/sdlc start minor "Change button color"
+# Creates: minor/change-button-color
+
 /sdlc start feature "用户认证"
 # Creates: feature/user-auth
 ```

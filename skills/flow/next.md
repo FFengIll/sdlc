@@ -37,6 +37,23 @@ continue      # Continue
 
 ## Phase Transitions
 
+### MINOR flow
+```
+coding    →  (Direct edit - user specified changes)
+test      →  /sdlc test [lint+format]
+commit    →  /sdlc commit
+```
+
+### QUICK flow
+```
+understand →  /sdlc understand [scope]
+spec       →  /sdlc spec "Quick spec"
+coding     →  (Manual coding - user prompted)
+test       →  /sdlc test [checks]
+commit     →  /sdlc commit
+pr         →  /sdlc pr
+```
+
 ### FEATURE flow
 ```
 research  →  /sdlc research "Research context"

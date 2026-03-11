@@ -70,6 +70,8 @@ If no workflow is active:
 ## No Active Workflow
 
 Start a new workflow:
+- `/sdlc start minor "Quick modification description"`
+- `/sdlc start quick "Small change description"`
 - `/sdlc start feature "New feature description"`
 - `/sdlc start bugfix "Bug description"`
 - `/sdlc start refactor "What to refactor"`
