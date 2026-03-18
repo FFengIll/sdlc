@@ -59,6 +59,7 @@ Software Development Lifecycle management with intelligent intent detection.
 | `/sdlc pr [action]`      | Create/manage PR                                                |
 | `/sdlc debug [issue]`    | Debug bugs                                                      |
 | `/sdlc research [topic]` | Research solutions                                              |
+| `/sdlc resume`           | Browse and resume recent work from docs/                        |
 
 ## Workflows
 
@@ -314,6 +315,7 @@ The SDLC system is composed of the following skills organized under `sdlc/`:
 | `/sdlc skip`   | Skip current phase     | `flow/skip.md`   |
 | `/sdlc status` | Show workflow progress | `flow/status.md` |
 | `/sdlc phase`  | Change current phase   | `flow/phase.md`  |
+| `/sdlc resume` | Browse and resume work | `flow/resume.md` |
 
 ## Foundation Skills (`skills/sdlc/foundation/`)
 
