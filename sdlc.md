@@ -49,6 +49,7 @@ Software Development Lifecycle management with intelligent intent detection.
 
 | Command                  | Description                                                     |
 | ------------------------ | --------------------------------------------------------------- |
+| `/sdlc guard [task]`     | Establish safety guardrails before proceeding with work         |
 | `/sdlc understand`       | Build context, explore codebase, discuss architecture           |
 | `/sdlc cr [scope]`       | Code review - find issues, check quality (staged/files/folders) |
 | `/sdlc spec [title]`     | Write specification                                             |
@@ -172,6 +173,7 @@ Workflows are created implicitly when you first describe what you want to do.
 - `understand` - Understanding reports (in `docs/`)
 - `commit` - Commit logs (in `docs/`)
 - `pr` - PR logs (in `docs/`)
+- `guard` - Guardrail reports (in `docs/`)
 - `harness` - Verification harnesses (in `harness/`)
 - `arch` - Architecture cache (in `arch/`)
 
@@ -207,7 +209,7 @@ Workflows are created implicitly when you first describe what you want to do.
 When `/sdlc` is invoked with arbitrary input:
 
 1. **Check for explicit commands first**
-   - If input matches `understand|spec|harness|coding|test|validate|commit|pr|debug|research|cr|secure`
+   - If input matches `guard|understand|spec|harness|coding|test|validate|commit|pr|debug|research|cr|secure`
    - Execute the corresponding phase skill directly
 
 2. **Analyze for workflow-level intents**
@@ -276,6 +278,7 @@ else:
 ## Skill Invocations
 
 When routing to a specific phase, invoke:
+- `/sdlc guard` → read `skills/phases/guard.md`
 - `/sdlc understand` → read `skills/phases/understand.md`
 - `/sdlc cr` → read `skills/phases/cr.md`
 - `/sdlc spec` → read `skills/phases/spec.md`
@@ -354,6 +357,7 @@ The SDLC system is composed of the following skills organized under `sdlc/`:
 
 | Skill         | Description                                   | File                   |
 | ------------- | --------------------------------------------- | ---------------------- |
+| `/guard`      | Establish safety guardrails before work       | `phases/guard.md`      |
 | `/understand` | Build architecture cache and explore codebase | `phases/understand.md` |
 | `/cr`         | Code review - find issues and check quality   | `phases/cr.md`         |
 | `/spec`       | Write specifications                          | `phases/spec.md`       |
