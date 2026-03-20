@@ -11,7 +11,20 @@
 ```
 
 **Arguments:**
-- `base-branch` (optional): The base branch to compare against (default: `main`)
+- `base-branch` (optional): The base branch to compare against
+  - **Priority**: Command arg > state.json config > default (`origin/main`)
+  - Format: `origin/main` or just `main` (auto-prefixed with remote)
+  - Can be remote branch (`origin/develop`) or local branch (`feature-branch`)
+
+**Configuration (state.json):**
+```json
+{
+  "pr": {
+    "base_branch": "origin/main",  // Default base branch for PRs
+    "remote": "origin"             // Remote name (for short-form args)
+  }
+}
+```
 
 **Actions:**
 - No argument: Generate PR title and description
@@ -53,22 +66,45 @@ The project uses conventional commits with lowercase prefixes:
 
 ## PR Generation Process
 
+### 0. Determine Base Branch (Priority Order)
+
+1. **Command argument** (highest): `/pr develop` or `/pr origin/develop`
+2. **state.json config**: `pr.base_branch`
+3. **Default** (lowest): `origin/main`
+
 ### 1. Fetch Remote Base Branch (First - Blocking)
 
 **Critical: Must complete before any git operations**
 
 ```bash
-git fetch origin <base-branch>  # default: origin/main
+# Extract remote and branch from base_branch (e.g., "origin/main" -> remote="origin", branch="main")
+git fetch origin <branch>  # If base_branch is "origin/main", fetch "main"
 ```
 
 **Important:** Run this step first and wait for completion. Do NOT run in parallel with subsequent git commands.
 
 ### 2. Understand Code Changes
 
+**Use the resolved base_branch from Step 0**
+
 ```bash
-git log <base-branch>..HEAD --oneline    # Reference: commit history for context
-git diff <base-branch>..HEAD             # Primary: full diff - what actually changed
-git diff <base-branch>..HEAD --stat      # Overview: changed files summary
+# Use the full branch ref (e.g., origin/main, origin/develop, or local branch)
+git log <resolved_base_branch>..HEAD --oneline    # Reference: commit history for context
+git diff <resolved_base_branch>..HEAD             # Primary: full diff - what actually changed
+git diff <resolved_base_branch>..HEAD --stat      # Overview: changed files summary
+```
+
+**Example (default origin/main):**
+```bash
+git log origin/main..HEAD --oneline
+git diff origin/main..HEAD
+git diff origin/main..HEAD --stat
+```
+
+**Example (local branch):**
+```bash
+git log my-feature..HEAD --oneline
+git diff my-feature..HEAD
 ```
 
 **Focus on the diff** - The commit messages are only for context. The diff tells you:
@@ -254,6 +290,27 @@ Ready to merge! Use `/sdlc pr merge` to complete.
 - [ ] PR logged to documentation (SDLC only)
 
 ## State Integration
+
+### state.json Structure
+
+```json
+{
+  "pr": {
+    "base_branch": "origin/main",  // Default base branch for PRs
+    "remote": "origin"             // Remote name (for short-form args)
+  }
+}
+```
+
+### Base Branch Resolution
+
+| Method | Priority | Example |
+|--------|----------|---------|
+| Command argument | 1 (highest) | `/pr develop` or `/pr origin/develop` |
+| state.json `pr.base_branch` | 2 | Uses configured branch |
+| System default | 3 (lowest) | `origin/main` |
+
+### State Updates
 
 - **Updates**: `sdlc.phase` = `pr`
 - **Creates**: Pull request
