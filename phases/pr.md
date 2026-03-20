@@ -22,10 +22,21 @@ Generate pull request content that explains **why** the change exists and **what
 {
   "pr": {
     "base_branch": "origin/main",
-    "remote": "origin"
+    "remote": "origin",
+    "auto_push": false
   }
 }
 ```
+
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `base_branch` | string | `origin/main` | Target branch for the PR |
+| `remote` | string | `origin` | Git remote to use |
+| `auto_push` | boolean | `false` | Automatically create PR via `gh pr create` |
+
+**Behavior**:
+- **`auto_push: false`** (default) - Return PR title, description, and command to user. User decides when to push.
+- **`auto_push: true`** - Automatically execute `gh pr create` with generated content.
 
 ## What Makes a Good PR?
 
@@ -115,6 +126,30 @@ Ask yourself:
 - Bad: "Added function A, renamed file B"
 - Good: "Simplified provider management with unified interface"
 
+### 5. Output Behavior
+
+The skill returns PR information based on `auto_push` setting:
+
+**Default (`auto_push: false`)**:
+```markdown
+## Pull Request Ready
+
+**Title**: feat: implement user authentication
+
+**Description**:
+[Generated PR description]
+
+**Command to create PR**:
+```bash
+gh pr create --title "feat: implement user authentication" --body "..." --base origin/main
+```
+```
+
+**With `auto_push: true`**:
+- Automatically executes `gh pr create` with generated content
+- Returns the created PR URL
+- Logs the PR creation to `.sdlc/docs/*.pr.md`
+
 ## Examples
 
 ### Example 1: Bug Fix
@@ -179,6 +214,11 @@ Provider management was scattered across 4 separate commands with inconsistent U
 
 - **Updates**: `sdlc.phase` = `pr`
 - **Creates**: PR log in `.sdlc/docs/*.pr.md` (SDLC only)
+- **Reads**: `state.json` for `pr.base_branch`, `pr.remote`, and `pr.auto_push`
+
+**Auto-Push Behavior**:
+- `auto_push: false` (default) - Returns PR information to user, does not push
+- `auto_push: true` - Automatically executes `gh pr create`
 
 ## Related Skills
 
