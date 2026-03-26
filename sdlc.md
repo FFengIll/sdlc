@@ -41,6 +41,8 @@ Software Development Lifecycle management with intelligent intent detection and 
 | `/sdlc commit [msg]` | Commit changes | `actions:commit` |
 | `/sdlc pr [action]` | Create/manage PR | `actions:pr` |
 | `/sdlc debug [issue]` | Debug bugs | `actions:debug` |
+| `/sdlc discuss [topic]` | Technical discussion | `actions:discuss` |
+| `/sdlc handoff [task]` | Delegate to subagent | `actions:handoff` |
 | `/sdlc status` | Show workflow progress | `flow:status` |
 | `/sdlc resume` | Browse recent work | `flow:resume` |
 
@@ -95,7 +97,7 @@ When `/sdlc` receives input:
 
 1. **Check explicit commands first**
    ```
-   guard|understand|cr|spec|harness|coding|test|validate|commit|pr|debug|research|secure|status|resume
+   guard|understand|cr|spec|harness|coding|test|validate|commit|pr|debug|research|secure|discuss|handoff|status|resume
    ```
    → Execute corresponding skill directly
 
@@ -137,6 +139,8 @@ When `/sdlc` receives input:
 /sdlc debug     → actions:debug
 /sdlc research  → actions:research
 /sdlc secure    → actions:secure
+/sdlc discuss   → actions:discuss
+/sdlc handoff   → actions:handoff
 ```
 
 ### Workflow Skills
@@ -158,11 +162,9 @@ minor workflow    → workflows:minor
 ```
 utils:archive     - Archive documentation
 utils:cache       - Manage architecture cache
-utils:discuss     - Discussion and collaboration
 utils:doc         - Documentation management
 utils:git         - Git operations
 utils:git-resolve - Resolve git conflicts
-utils:handoff     - Handoff between contexts
 utils:pencil      - Quick note-taking
 ```
 
