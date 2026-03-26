@@ -1,6 +1,6 @@
-# Foundation Skills
+# Utility Skills
 
-This directory contains the foundational skills that support the SDLC workflow. These skills can be called at any time during the development process.
+This directory contains utility skills that support the SDLC workflow. These skills can be called at any time during the development process.
 
 ## Available Skills
 
@@ -17,7 +17,7 @@ This directory contains the foundational skills that support the SDLC workflow. 
 
 ## Usage
 
-Foundation skills are available as standalone commands:
+Utility skills are available as standalone commands:
 
 ```bash
 /discuss [topic description]
@@ -32,7 +32,7 @@ Foundation skills are available as standalone commands:
 
 ## Integration with SDLC
 
-These foundation skills are designed to work seamlessly with the SDLC workflow:
+These utility skills are designed to work seamlessly with the SDLC workflow:
 
 - **During research**: Use `/cache` to read architecture knowledge
 - **During spec**: Use `/pencil` to create wireframes, `/doc` to generate API docs
@@ -52,7 +52,7 @@ These skills were created based on the SDLC v3.2 design document:
 ## File Structure
 
 ```
-skills/foundation/
+utils/
 ├── README.md           # This file
 ├── discuss.md          # Technical discussion skill
 ├── doc.md              # Documentation skill
@@ -66,7 +66,7 @@ skills/foundation/
 
 ## Dependencies
 
-Foundation skills may depend on each other:
+Utility skills may depend on each other:
 - **discuss** depends on: cache, doc, git
 - **doc** depends on: cache, pencil
 - **pencil** depends on: doc, cache

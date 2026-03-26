@@ -154,16 +154,16 @@ minor workflow    → workflows:minor
 /sdlc resume → flow:resume
 ```
 
-### Foundation Skills
+### Utility Skills
 ```
-foundation:archive     - Archive documentation
-foundation:cache       - Manage architecture cache
-foundation:discuss     - Discussion and collaboration
-foundation:doc         - Documentation management
-foundation:git         - Git operations
-foundation:git-resolve - Resolve git conflicts
-foundation:handoff     - Handoff between contexts
-foundation:pencil      - Quick note-taking
+utils:archive     - Archive documentation
+utils:cache       - Manage architecture cache
+utils:discuss     - Discussion and collaboration
+utils:doc         - Documentation management
+utils:git         - Git operations
+utils:git-resolve - Resolve git conflicts
+utils:handoff     - Handoff between contexts
+utils:pencil      - Quick note-taking
 ```
 
 ## Routing Logic
