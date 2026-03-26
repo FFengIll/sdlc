@@ -188,16 +188,6 @@ Workflows are created implicitly when you first describe what you want to do.
 7. **Use smart mode for convenience** - Let AI detect the workflow
 8. **Use explicit commands for precision** - When you know exactly what phase you need
 
-## Migration Notes
-
-| Old Command   | New Command                 |
-| ------------- | --------------------------- |
-| `/spec`       | `/sdlc spec`                |
-| `/git-commit` | `/commit` or `/sdlc commit` |
-| `/codereview` | `/sdlc cr`                  |
-
-**`/commit` and `/pr` are now standalone** - use anytime without starting an SDLC workflow.
-
 ---
 
 # Internal: Intent Detection & Routing
@@ -277,23 +267,31 @@ else:
 
 ## Skill Invocations
 
-When routing to a specific phase, invoke:
-- `/sdlc guard` → read `skills/phases/guard.md`
-- `/sdlc understand` → read `skills/phases/understand.md`
-- `/sdlc cr` → read `skills/phases/cr.md`
-- `/sdlc spec` → read `skills/phases/spec.md`
-- `/sdlc harness` → read `skills/phases/harness.md`
-- `/sdlc coding` → read `skills/phases/coding.md`
-- `/sdlc test` → read `skills/phases/test.md`
-- `/sdlc validate` → read `skills/phases/validate.md`
-- `/sdlc commit` → read `skills/phases/commit.md`
-- `/sdlc pr` → read `skills/phases/pr.md`
+When routing to a specific phase, use the Skill tool with:
+- `/sdlc guard` → `phases:guard`
+- `/sdlc understand` → `phases:understand`
+- `/sdlc cr` → `phases:cr`
+- `/sdlc spec` → `phases:spec`
+- `/sdlc harness` → `phases:harness`
+- `/sdlc coding` → `phases:coding`
+- `/sdlc test` → `phases:test`
+- `/sdlc validate` → `phases:validate`
+- `/sdlc commit` → `phases:commit`
+- `/sdlc pr` → `phases:pr`
+- `/sdlc debug` → `phases:debug`
+- `/sdlc research` → `phases:research`
+- `/sdlc secure` → `phases:secure`
 
-When routing to a workflow, invoke:
-- bugfix → read `skills/workflows/bugfix.md`
-- feature → read `skills/workflows/feature.md`
-- refactor → read `skills/workflows/refactor.md`
-- research → read `skills/workflows/research.md`
+When routing to a workflow, use the Skill tool with:
+- bugfix → `workflows:bugfix`
+- feature → `workflows:feature`
+- refactor → `workflows:refactor`
+- research → `workflows:research`
+- minor → `workflows:minor`
+
+When routing to flow control, use the Skill tool with:
+- `/sdlc status` → `flow:status`
+- `/sdlc resume` → `flow:resume`
 
 ## Skill Behavior Summary
 
@@ -353,50 +351,52 @@ Always show what was detected before executing:
 
 The SDLC system is composed of the following skills organized under `sdlc/`:
 
-## Phase Skills (`skills/sdlc/phases/`)
+## Phase Skills
 
-| Skill         | Description                                   | File                   |
-| ------------- | --------------------------------------------- | ---------------------- |
-| `/guard`      | Establish safety guardrails before work       | `phases/guard.md`      |
-| `/understand` | Build architecture cache and explore codebase | `phases/understand.md` |
-| `/cr`         | Code review - find issues and check quality   | `phases/cr.md`         |
-| `/spec`       | Write specifications                          | `phases/spec.md`       |
-| `/harness`    | Write verification harnesses (invariants)     | `phases/harness.md`    |
-| `/coding`     | Write code based on specs                     | `phases/coding.md`     |
-| `/test`       | Run tests (lint + unit + e2e)                 | `phases/test.md`       |
-| `/validate`   | Validate against harness/goal (active testing)| `phases/validate.md`   |
-| `/commit`     | Commit changes                                | `phases/commit.md`     |
-| `/pr`         | Create and manage pull requests               | `phases/pr.md`         |
-| `/debug`      | Debug and fix bugs                            | `phases/debug.md`      |
-| `/research`   | Research solutions and best practices         | `phases/research.md`   |
-| `/secure`     | Security review and analysis                  | `phases/secure.md`     |
+| Skill Reference    | User Command      | Description                                   | File Path              |
+| ------------------ | ----------------- | --------------------------------------------- | ---------------------- |
+| `phases:guard`     | `/sdlc guard`     | Establish safety guardrails before work       | `phases/guard.md`      |
+| `phases:understand`| `/sdlc understand`| Build architecture cache and explore codebase | `phases/understand.md` |
+| `phases:cr`        | `/sdlc cr`        | Code review - find issues and check quality   | `phases/cr.md`         |
+| `phases:spec`      | `/sdlc spec`      | Write specifications                          | `phases/spec.md`       |
+| `phases:harness`   | `/sdlc harness`   | Write verification harnesses (invariants)     | `phases/harness.md`    |
+| `phases:coding`    | `/sdlc coding`    | Write code based on specs                     | `phases/coding.md`     |
+| `phases:test`      | `/sdlc test`      | Run tests (lint + unit + e2e)                 | `phases/test.md`       |
+| `phases:validate`  | `/sdlc validate`  | Validate against harness/goal (active testing)| `phases/validate.md`   |
+| `phases:commit`    | `/sdlc commit`    | Commit changes                                | `phases/commit.md`     |
+| `phases:pr`        | `/sdlc pr`        | Create and manage pull requests               | `phases/pr.md`         |
+| `phases:debug`     | `/sdlc debug`     | Debug and fix bugs                            | `phases/debug.md`      |
+| `phases:research`  | `/sdlc research`  | Research solutions and best practices         | `phases/research.md`   |
+| `phases:secure`    | `/sdlc secure`    | Security review and analysis                  | `phases/secure.md`     |
 
-## Workflow Skills (`skills/sdlc/workflows/`)
+## Workflow Skills
 
-| Skill      | Description                       | File                    |
-| ---------- | --------------------------------- | ----------------------- |
-| `minor`    | Minor modifications workflow      | `workflows/minor.md`    |
-| `feature`  | New features development workflow | `workflows/feature.md`  |
-| `bugfix`   | Bug fixes workflow                | `workflows/bugfix.md`   |
-| `refactor` | Code refactoring workflow         | `workflows/refactor.md` |
-| `research` | Research workflow                 | `workflows/research.md` |
+| Skill Reference      | Description                       | File Path               |
+| -------------------- | --------------------------------- | ----------------------- |
+| `workflows:minor`    | Minor modifications workflow      | `workflows/minor.md`    |
+| `workflows:feature`  | New features development workflow | `workflows/feature.md`  |
+| `workflows:bugfix`   | Bug fixes workflow                | `workflows/bugfix.md`   |
+| `workflows:refactor` | Code refactoring workflow         | `workflows/refactor.md` |
+| `workflows:research` | Research workflow                 | `workflows/research.md` |
 
-## Flow Control Skills (`skills/sdlc/flow/`)
+## Flow Control Skills
 
-| Skill          | Description            | File             |
-| -------------- | ---------------------- | ---------------- |
-| `/sdlc status` | Show workflow progress | `flow/status.md` |
-| `/sdlc resume` | Browse and resume work | `flow/resume.md` |
+| Skill Reference | User Command     | Description            | File Path        |
+| --------------- | ---------------- | ---------------------- | ---------------- |
+| `flow:status`   | `/sdlc status`   | Show workflow progress | `flow/status.md` |
+| `flow:resume`   | `/sdlc resume`   | Browse and resume work | `flow/resume.md` |
 
-## Foundation Skills (`skills/sdlc/foundation/`)
+## Foundation Skills
 
-| Skill         | Description                  | File                        |
-| ------------- | ---------------------------- | --------------------------- |
-| `archive`     | Archive documentation        | `foundation/archive.md`     |
-| `cache`       | Manage architecture cache    | `foundation/cache.md`       |
-| `discuss`     | Discussion and collaboration | `foundation/discuss.md`     |
-| `doc`         | Documentation management     | `foundation/doc.md`         |
-| `git`         | Git operations               | `foundation/git.md`         |
-| `git-resolve` | Resolve git conflicts        | `foundation/git-resolve.md` |
-| `handoff`     | Handoff between contexts     | `foundation/handoff.md`     |
-| `pencil`      | Quick note-taking            | `foundation/pencil.md`      |
+| Skill Reference         | Description                  | File Path                   |
+| ----------------------- | ---------------------------- | --------------------------- |
+| `foundation:archive`    | Archive documentation        | `foundation/archive.md`     |
+| `foundation:cache`      | Manage architecture cache    | `foundation/cache.md`       |
+| `foundation:discuss`    | Discussion and collaboration | `foundation/discuss.md`     |
+| `foundation:doc`        | Documentation management     | `foundation/doc.md`         |
+| `foundation:git`        | Git operations               | `foundation/git.md`         |
+| `foundation:git-resolve`| Resolve git conflicts        | `foundation/git-resolve.md` |
+| `foundation:handoff`    | Handoff between contexts     | `foundation/handoff.md`     |
+| `foundation:pencil`     | Quick note-taking            | `foundation/pencil.md`      |
+
+> **Note:** Use "Skill Reference" (e.g., `phases:cr`) when invoking skills with the Skill tool.
