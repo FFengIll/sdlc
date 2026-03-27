@@ -117,6 +117,42 @@ vibely/
 
 # SDLC with Feedback
 
+* **反馈驱动演进。**
+
+* 工作流结束，学习才刚开始。
+
+  每一次通过 `/sdlc` 完成的任务，都会产生新的洞察。
+
+* 不要满足于静态流程。
+
+  今天有效的方法，明天可能需要改进。
+
+* **打分、反思、迭代。**
+
+* 持续改进：
+  * 评估哪些有效，哪些无效
+  * 基于真实经验更新工作流
+  * 让每次迭代为下次提供依据
+  * ……
+
+* 不存在银弹。
+
+  系统在每一次反馈循环中自我完善，人的反馈非常重要且简单。
+
+---
+
+* **Feedback drives evolution.**
+
+* The workflow completes, but the learning continues.
+
+  Every task executed through `/sdlc` generates insights.
+
+* Do not settle for static processes.
+
+  What works today may need refinement tomorrow.
+
+* **Score, reflect, and iterate.**
+
 ```
 # tasks done with /sdlc
 
@@ -124,9 +160,20 @@ vibely/
 /feedback
 ```
 
-- No silver-bullet, so feedback and improve, make it better and better for self
-  - yep, we can catch ideas from https://github.com/karpathy/autoresearch
-  - it is now /feedback
+* Embrace continuous improvement:
+  * Evaluate what worked and what didn't
+  * Update workflows based on real experience
+  * Let each iteration inform the next
+  * ……
+
+* **REMEMBER** There is no silver bullet.
+
+  The system improves itself, but feedback loop is important at a time.
+
+---
+
+- Inspiration from https://github.com/karpathy/autoresearch
+- Implemented as `/feedback`
 
 
 # Tingly-spec
