@@ -2,6 +2,62 @@
 
 My prompt for ai coding with harness and feedback
 
+# Overview
+
+## 1. Intent Detection & Auto Routing
+
+```
+  /sdlc "fix login bug" | "add user auth" | "review my changes"
+        │
+        ▼
+  Intent Detection Engine
+        │
+        ├─ fix|bug    → bugfix workflow   ─┐
+        ├─ add|new    → feature workflow   │
+        ├─ refactor   → refactor workflow  ├─→ Execute Skill → .sdlc/docs/category-feature-date.type.md
+        ├─ review|cr  → action:cr          │
+        ├─ understand → understand(cache) ─┘
+        └─ commit|pr  → action:commit
+```
+
+## 2. Direct Action Invocation
+
+```
+  /actions:<action>: understand | spec | coding | test | commit | cr | pr | regression
+        │
+        ▼
+  Action Map
+        │
+        ├─ understand → .sdlc/arch/overview-*.arch.md
+        ├─ spec       → .sdlc/docs/*.spec.md
+        ├─ coding     → .sdlc/docs/*.coding.md
+        ├─ test       → .sdlc/docs/*.test.md
+        ├─ commit     → .sdlc/docs/*.commit.md
+        └─ pr         → .sdlc/docs/*.pr.md
+```
+
+## 3. Workflow Example: Feature Development
+
+```
+  /sdlc add user authentication
+        │
+        ▼
+  Feature Workflow:
+  understand → research → spec → coding → test → commit → pr
+      │            │        │       │       │       │       │
+   .sdlc/       .sdlc/   .sdlc/  .sdlc/  .sdlc/  .sdlc/  .sdlc/
+   arch/         docs/    docs/   docs/   docs/   docs/   docs/
+  overview-    auth-*   auth-*  auth-*  auth-*  auth-*  auth-*
+  *.arch.md   .research  .spec  .coding  .test  .commit   .pr
+               .md       .md     .md     .md     .md      .md
+```
+
+  Interactive Flow:
+  继续 / 下一步  → Next phase
+  跳过测试       → Skip phase
+  到哪了？       → Check status
+
+
 # SDLC with Harness
 
 
@@ -60,10 +116,6 @@ My prompt for ai coding with harness and feedback
 
 ```
 vibely/
-├── .sdlc/                          # SDLC configuration and documentation
-│   └── harness/                    # Harness configuration files
-│       ├── sdlc-documentation-structure-20260319.harness.md
-│       └── sdlc-documentation-system-20260319.harness.md
 ├── actions/                        # SDLC action definitions (slash commands)
 │   ├── coding.md                   # /coding - Coding phase
 │   ├── commit.md                   # /commit - Commit phase
@@ -74,8 +126,10 @@ vibely/
 │   ├── handoff.md                  # /handoff - Handoff procedures
 │   ├── harness.md                  # /harness - Harness integration
 │   ├── pr.md                       # /pr - Pull request
+│   ├── regression.md               # /regression - Regression testing
 │   ├── research.md                 # /research - Research phase
 │   ├── secure.md                   # /secure - Security phase
+│   ├── simplify.md                 # /simplify - Code simplification
 │   ├── spec.md                     # /spec - Specification phase
 │   ├── test.md                     # /test - Testing phase
 │   ├── understand.md               # /understand - Understanding/analysis
@@ -87,13 +141,16 @@ vibely/
 ├── flow/                           # Flow control and state management
 │   ├── resume.md                   # /sdlc resume - Resume workflow
 │   └── status.md                   # /sdlc status - Status tracking
+├── resource/                       # Resource files
+│   └── showcase-oauth.png          # OAuth showcase image
 ├── utils/                          # Utility skills and tools
 │   ├── README.md                   # Utilities overview
 │   ├── archive.md                  # Archive utility
+│   ├── branch.md                   # Branch detection utility
 │   ├── cache.md                    # Cache utility
 │   ├── doc.md                      # Documentation utility
 │   ├── git-resolve.md              # Git conflict resolution
-│   ├── git.md                      # Git utility
+│   └── git.md                      # Git utility
 │   └── pencil.md                   # Pencil framework utility
 ├── workflows/                      # Workflow definitions
 │   ├── bugfix.md                   # Bug fix workflow
@@ -101,11 +158,9 @@ vibely/
 │   ├── minor.md                    # Minor changes workflow
 │   ├── refactor.md                 # Refactoring workflow
 │   └── research.md                 # Research workflow
-├── resource/                       # Resource files
-│   └── showcase-oauth.png          # OAuth showcase image
 ├── .gitignore                      # Git ignore rules
+├── AGENTS.md                       # Agents documentation
 ├── README.md                       # This file
-├── c.md                            # Configuration/notes file
 ├── feedback.md                     # Feedback skill
 └── sdlc.md                         # SDLC main documentation
 ```
