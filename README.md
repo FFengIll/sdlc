@@ -8,7 +8,7 @@ My prompt for ai coding with intent, harness and feedback
 # For claude
 git clone https://github.com/FFengIll/sdlc-skill.git
 
-# Use as Command
+# Use as Command (Recommend)
 # cp to commands for use as /sdlc command
 cp -R sdlc-skill ~/.claude/commands/sdlc
 # or flatten them
