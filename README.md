@@ -4,6 +4,17 @@ My prompt for ai coding with intent, harness and feedback
 
 # Install
 
+## Command (Recommend)
+```
+# For claude 
+git clone https://github.com/FFengIll/sdlc.git
+
+# /sdlc:sdlc
+cp -R sdlc ~/.claude/commands/
+# or flatten /sdlc
+cp -R sdlc/* ~/.claude/commands/
+```
+
 ## Plugin / Skill
 ```
 # For claude 
@@ -16,17 +27,6 @@ claude plugin install sdlc@sdlc-marketplace
 
 # use
 /sdlc your command  
-```
-
-## Command
-```
-# For claude 
-git clone https://github.com/FFengIll/sdlc.git
-
-# /sdlc:sdlc
-cp -R sdlc ~/.claude/commands/
-# or flatten /sdlc
-cp -R sdlc/* ~/.claude/commands/
 ```
 
 # Overview
