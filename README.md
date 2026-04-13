@@ -5,18 +5,16 @@ My prompt for ai coding with intent, harness and feedback
 # Install
 
 ```
-# For claude
-git clone https://github.com/FFengIll/sdlc-skill.git
+# For claude 
+claude plugin marketplace add ffengill/sdlc
+claude plugin install sdlc@sdlc-marketplace
 
-# Use as Command (Recommend)
-# cp to commands for use as /sdlc command
-cp -R sdlc-skill ~/.claude/commands/sdlc
-# or flatten them
-cp -R sdlc-skill/* ~/.claude/commands/
+# or in claude
+/plugin marketplace add ffengill/sdlc
+/plugin install sdlc@sdlc-marketplace
 
-# Use as Skilll
-# cp to skills, here is a same SKILL.md as sdlc.mc
-cp -R sdlc-skill ~/.claude/skills/sdlc
+# use
+/sdlc your command  
 ```
 
 # Overview
