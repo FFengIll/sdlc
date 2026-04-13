@@ -2,6 +2,23 @@
 
 My prompt for ai coding with intent, harness and feedback
 
+# Install
+
+```
+# For claude
+git clone https://github.com/FFengIll/sdlc-skill.git
+
+# Use as Command
+# cp to commands for use as /sdlc command
+cp -R sdlc-skill ~/.claude/commands/sdlc
+# or flatten them
+cp -R sdlc-skill/* ~/.claude/commands/
+
+# Use as Skilll
+# cp to skills, here is a same SKILL.md as sdlc.mc
+cp -R sdlc-skill ~/.claude/skills/sdlc
+```
+
 # Overview
 
 ## 1. Intent Detection & Auto Routing
