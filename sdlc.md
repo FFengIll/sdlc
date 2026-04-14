@@ -30,34 +30,35 @@ Software Development Lifecycle management with intelligent intent detection and 
 
 ## Core Commands
 
-| Command | Description | Skill Reference |
-|---------|-------------|-----------------|
-| `/sdlc guard [task]` | Safety guardrails before work | `actions:guard` |
-| `/sdlc understand` | Build architecture cache | `actions:understand` |
-| `/sdlc cr [scope]` | Code review - find issues | `actions:cr` |
-| `/sdlc spec [title]` | Write specification | `actions:spec` |
-| `/sdlc coding [desc]` | Write code | `actions:coding` |
-| `/sdlc test [type]` | Run tests | `actions:test` |
-| `/sdlc commit [msg]` | Commit changes | `actions:commit` |
-| `/sdlc pr [action]` | Create/manage PR | `actions:pr` |
-| `/sdlc simplify [scope]` | Simplify changed code | `actions:simplify` |
-| `/sdlc regression [branch]` | Check for regressions | `actions:regression` |
-| `/sdlc debug [issue]` | Debug bugs | `actions:debug` |
-| `/sdlc discuss [topic]` | Technical discussion | `actions:discuss` |
-| `/sdlc handoff [task]` | Delegate to subagent | `actions:handoff` |
-| `/sdlc feedback [skill]` | Collect skill feedback | `feedback` |
-| `/sdlc status` | Show workflow progress | `flow:status` |
-| `/sdlc resume` | Browse recent work | `flow:resume` |
+| Command                     | Description                   | Skill Reference      |
+| --------------------------- | ----------------------------- | -------------------- |
+| `/sdlc guard [task]`        | Safety guardrails before work | `actions:guard`      |
+| `/sdlc understand`          | Build architecture cache      | `actions:understand` |
+| `/sdlc cr [scope]`          | Code review - find issues     | `actions:cr`         |
+| `/sdlc spec [title]`        | Write specification           | `actions:spec`       |
+| `/sdlc coding [desc]`       | Write code                    | `actions:coding`     |
+| `/sdlc test [type]`         | Run tests                     | `actions:test`       |
+| `/sdlc commit [msg]`        | Commit changes                | `actions:commit`     |
+| `/sdlc pr [action]`         | Create/manage PR              | `actions:pr`         |
+| `/sdlc lint [scope]`        | Lint and auto-fix code        | `actions:lint`       |
+| `/sdlc simplify [scope]`    | Simplify changed code         | `actions:simplify`   |
+| `/sdlc regression [branch]` | Check for regressions         | `actions:regression` |
+| `/sdlc debug [issue]`       | Debug bugs                    | `actions:debug`      |
+| `/sdlc discuss [topic]`     | Technical discussion          | `actions:discuss`    |
+| `/sdlc handoff [task]`      | Delegate to subagent          | `actions:handoff`    |
+| `/sdlc feedback [skill]`    | Collect skill feedback        | `feedback`           |
+| `/sdlc status`              | Show workflow progress        | `flow:status`        |
+| `/sdlc resume`              | Browse recent work            | `flow:resume`        |
 
 ## Workflows
 
-| Type | Workflow | Skill Reference |
-|------|----------|-----------------|
-| Minor changes | coding → test → commit | `workflows:minor` |
-| New feature | understand → research → spec → coding → test → commit → pr | `workflows:feature` |
-| Bug fix | understand → debug → coding → test → commit → pr | `workflows:bugfix` |
-| Refactor | understand → spec → coding → test → commit → pr | `workflows:refactor` |
-| Research | understand → research → doc → END | `workflows:research` |
+| Type          | Workflow                                                   | Skill Reference      |
+| ------------- | ---------------------------------------------------------- | -------------------- |
+| Minor changes | coding → test → commit                                     | `workflows:minor`    |
+| New feature   | understand → research → spec → coding → test → commit → pr | `workflows:feature`  |
+| Bug fix       | understand → debug → coding → test → commit → pr           | `workflows:bugfix`   |
+| Refactor      | understand → spec → coding → test → commit → pr            | `workflows:refactor` |
+| Research      | understand → research → doc → END                          | `workflows:research` |
 
 ## Natural Language Flow
 
@@ -100,7 +101,7 @@ When `/sdlc` receives input:
 
 1. **Check explicit commands first**
    ```
-   guard|understand|cr|spec|harness|coding|test|validate|commit|pr|debug|research|secure|discuss|handoff|feedback|status|resume|simplify|regression
+   guard|understand|cr|spec|harness|coding|test|validate|commit|pr|debug|research|secure|discuss|handoff|feedback|status|resume|lint|simplify|regression
    ```
    → Execute corresponding skill directly
 
@@ -119,6 +120,7 @@ When `/sdlc` receives input:
    - Test: `test|run tests|测试`
    - Commit: `commit|save changes|提交`
    - PR: `pull request|pr|提交pr`
+   - Lint: `lint|linting|linter|fix lint|check style`
    - Simplify: `simplify|clean up code|简化`
 
 4. **Flow control (natural language)**
@@ -145,6 +147,7 @@ When `/sdlc` receives input:
 /sdlc secure     → actions:secure
 /sdlc discuss    → actions:discuss
 /sdlc handoff    → actions:handoff
+/sdlc lint       → actions:lint
 /sdlc simplify   → actions:simplify
 /sdlc regression → actions:regression
 /sdlc feedback   → feedback
@@ -209,13 +212,17 @@ Always show detected intent:
 
 ## Key Behaviors
 
-| Intent | Creates Files | Purpose |
-|--------|--------------|---------|
+| Intent       | Creates Files                      | Purpose                     |
+| ------------ | ---------------------------------- | --------------------------- |
 | `understand` | ✅ `.sdlc/arch/`, `*.understand.md` | Reusable architecture cache |
-| `cr` | ✅ `*.cr.md` | Code review with findings |
-| `explore` | ❌ No files | Quick inspection only |
+| `cr`         | ✅ `*.cr.md`                        | Code review with findings   |
+| `explore`    | ❌ No files                         | Quick inspection only       |
 
 **When to use:**
 - User says "explore/explain/how does" → Just read and explain (no skill)
 - User says "understand/analyze architecture" → Execute `actions:understand`
 - User says "review/check/find issues" → Execute `actions:cr`
+
+**IMPORTANT:**
+`.sdlc` folder should place under user coding project path.
+
