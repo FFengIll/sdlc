@@ -51,14 +51,6 @@ Software Development Lifecycle management with intelligent intent detection and 
 | workflows:research | research, investigate, 研究               | understand→research→doc→END                    |
 | workflows:minor    | minor, small change, 小改动               | coding→test→commit                             |
 
-## Flow Control
-
-| Skill       | Cmd    | Intent keywords                              |
-| ----------- | ------ | -------------------------------------------- |
-| flow:status | status | where am i, 状态, 到哪了                     |
-| flow:resume | resume | resume, recent work                          |
-| —           | —      | continue, next, 继续, 下一步 → advance phase |
-| —           | —      | skip, bypass, 跳过 → skip phase              |
 
 ---
 
