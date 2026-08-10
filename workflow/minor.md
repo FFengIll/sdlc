@@ -4,6 +4,15 @@
 
 > **Use when**: The user has clearly identified what needs to change and where. No research or specification needed - just direct edits to selected files.
 
+## Core Principle: Direct, No Subagents
+
+Minor tasks are simple and fast by definition. The overhead of spawning subagents (context transfer, coordination, result relay) would exceed the cost of the task itself.
+
+- **No subagents** - never delegate to Explore/general-purpose/Plan agents
+- **Direct location** - use Read/Grep/Glob directly to locate the target; the user usually already pointed at it
+- **Direct edit** - modify in the main conversation, single pass
+- **Speed is the feature** - if locating the change requires multi-file exploration, it's not a minor task (escalate to another workflow)
+
 ## When to Use
 
 Use this workflow when:
@@ -34,6 +43,7 @@ coding → test → commit → END
 ```
 [Direct modification phase]
 ```
+- Locate the target directly (Read/Grep)
 - Edit selected files as specified
 - Make the exact changes requested
 - No additional refactoring or improvements
@@ -85,6 +95,7 @@ coding → test → commit → END
 - Bug fixes (use `bugfix`)
 - Refactoring (use `refactor`)
 - Changes that require understanding context (use `quick`)
+- Changes where the target location is unknown and needs broad exploration
 
 ✅ **Use minor for:**
 - "Change this button to blue"
@@ -92,26 +103,6 @@ coding → test → commit → END
 - "Rename this variable"
 - "Adjust this margin"
 
-## Natural Language Examples
-
-```bash
-/sdlc start minor "把按钮颜色改成蓝色"  # Change button to blue
-/sdlc start minor "Update this config value"  # Update config
-/sdlc start minor "Rename this function"  # Rename function
-```
-
-## Completion Checklist
-
-- [ ] Direct edit made to specified file(s)
-- [ ] Lint passes
-- [ ] Format passes
-- [ ] Commit created with simple message
-- [ ] No additional changes made
-
 ## Notes
 
-- **Fastest workflow** - minimal overhead
-- **User-specified scope** - only edit what was requested
-- **No documentation** - change is self-evident
-- **No PR** - direct commit to working branch
 - Use `/commit` standalone if not in a workflow
