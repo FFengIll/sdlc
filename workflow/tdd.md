@@ -202,46 +202,6 @@ These have uniquely high TDD value. Prioritize tests for:
 - Concurrent streams (isolation between streams)
 - Error mid-stream (partial output handling)
 
-## Usage Example
-
-```bash
-# Start TDD workflow
-/sdlc start tdd "SSE message parser"
-
-# Step 1: Understand the codebase
-/sdlc understand sse/parsing
-# → Creates/reuses .sdlc/docs/arch/main/sse-parsing-arch.md
-
-# Step 2: Clarify behavior contract
-/sdlc clarify "Define SSE message parsing behavior"
-# → Output: Behavior Contract Summary
-
-# Step 3: Create specification
-/sdlc spec "SSE parser interface and test requirements"
-
-# Step 4: Write tests FIRST
-/sdlc test --tdd-write
-# → Generates test cases for happy path, edge cases, errors
-# → User confirms tests look correct
-
-# Step 5: AI writes implementation to pass tests
-# → Minimal implementation that satisfies all tests
-
-# Step 6: Review implementation
-/sdlc review
-# → Structured review of behavior coverage
-
-# Step 7: Run all tests
-/sdlc test
-# → All tests pass, no regressions
-
-# Step 8: Commit
-/sdlc commit
-
-# Step 9: Create PR
-/sdlc pr
-```
-
 ## Anti-Patterns to Avoid
 
 | Anti-pattern | Why it's harmful | Better approach |
@@ -261,18 +221,6 @@ These have uniquely high TDD value. Prioritize tests for:
 | Refactor | Tests first as safety net, then refactor |
 | Existing code, no tests | Prioritize by risk: add tests to critical paths first |
 | Spike / prototype | Skip TDD, but add tests before merging |
-
-## Completion Checklist
-
-- [ ] **Understand phase completed**
-- [ ] **Behavior contract clarified and approved**
-- [ ] **Spec completed with test requirements**
-- [ ] **Tests written BEFORE implementation**
-- [ ] All tests pass
-- [ ] No untested behavior in implementation
-- [ ] Code review approved
-- [ ] Committed with proper message
-- [ ] PR created and merged
 
 ## Key Principles
 

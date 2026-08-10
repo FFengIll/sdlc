@@ -21,10 +21,6 @@ START
 understand → research → spec → coding → test → validate → secure → cr → commit → pr → MERGE
 ```
 
-**First Two Steps are Non-Negotiable:**
-1. `understand` - Build context, create architecture cache
-2. `spec` - Define requirements and design
-
 ## Phase Details
 
 ### 0. Understand (Required First Step)
@@ -135,77 +131,8 @@ understand → research → spec → coding → test → validate → secure →
 - Update changelog
 - Deploy to production
 
-## Usage Example
-
-```bash
-# Start feature workflow
-/sdlc start feature "User authentication"
-
-# Step 1: Understand the codebase (MANDATORY)
-/sdlc understand auth
-# → Creates/reuses .sdlc/docs/arch/main/auth-arch.md
-
-# Step 2: Research authentication approaches
-/sdlc research "Evaluate auth libraries: NextAuth vs Clerk vs custom"
-
-# Step 3: Create specification (MANDATORY BEFORE CODING)
-/sdlc spec "Define auth endpoints, session management, and security"
-# → Creates .sdlc/docs/spec/auth-spec.md
-
-# Step 4: [Manual coding - implement the feature based on spec]
-
-# Step 5: Run tests after coding
-/sdlc test
-
-# Step 6: Validate implementation
-/sdlc validate auth "authentication-invariants"
-
-# Step 7: Security check
-/sdlc secure
-
-# Step 8: Code review
-/sdlc cr
-
-# Step 9: Commit changes
-/sdlc commit
-
-# Step 10: Create pull request
-/sdlc pr
-
-# [Merge after review approval]
-```
-
-## Anti-Pattern: What NOT to Do
-
-```bash
-# ❌ BAD: Jumping straight to coding
-/sdlc start feature "User authentication"
-# [Start coding immediately without understanding or spec]
-
-# ✅ GOOD: Following the proper workflow
-/sdlc understand    # Always first
-/sdlc spec          # Always second
-# [Then code based on understanding and spec]
-```
-
-## Completion Checklist
-
-- [ ] **Understand phase completed** (architecture cache created/reused)
-- [ ] Research documented
-- [ ] Spec approved
-- [ ] Code implemented (only after spec is complete)
-- [ ] All tests passing
-- [ ] Harness/goals validated
-- [ ] Security scan clean
-- [ ] Code review approved
-- [ ] Committed with proper message
-- [ ] PR created and merged
-
 ## Notes
 
-- **The first two phases (understand + spec) are non-negotiable** - they prevent costly mistakes
 - The **coding** phase is manual - all other phases are automated
 - Use `/doc`, `/pencil`, `/cache` anytime during workflow
-- Each phase validates specific quality aspects
 - Can skip later phases with documented reason (but not understand + spec)
-- Test phase includes multiple check types

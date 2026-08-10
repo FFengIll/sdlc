@@ -23,9 +23,6 @@ START
 understand → research → doc → discuss → END
 ```
 
-**First Step is Non-Negotiable:**
-1. `understand` - Know what you currently have before researching alternatives
-
 ## Phase Details
 
 ### 0. Understand (Required First Step)
@@ -97,46 +94,6 @@ understand → research → doc → discuss → END
 - Follow-up tasks
 - Transition to feature workflow (if approved)
 
-## Usage Example
-
-```bash
-# Start research workflow
-/sdlc start research "Evaluate real-time collaboration solutions"
-
-# Step 1: Understand current architecture (MANDATORY)
-/sdlc understand
-# → Learn about current data flow, state management, networking layer
-
-# Step 2: Research phase
-/sdlc research "Compare Yjs, Automerge, and custom CRDT implementation"
-# → Creates comparison table, performance benchmarks, POC code
-
-# Step 3: Document findings
-/sdlc doc "Create technical proposal with recommendation"
-# → Generates ADR document with pros/cons and final recommendation
-
-# Step 4: Discuss with team
-/sdlc discuss "Present findings to engineering team"
-# → Get feedback, make decision, plan next steps
-
-# [END - or transition to feature workflow if implementing]
-```
-
-## Anti-Pattern: What NOT to Do
-
-```bash
-# ❌ BAD: Research without understanding current system
-/sdlc research "Add real-time collaboration"
-# → Proposes solutions that don't fit existing architecture
-# → Misses integration challenges
-# → Wastes time researching incompatible options
-
-# ✅ GOOD: Understand first, then research
-/sdlc understand     # Know what you have
-/sdlc research       # Research solutions that fit
-# → Faster research, better recommendations, smoother implementation
-```
-
 ## Research Output Template
 
 ```markdown
@@ -188,17 +145,6 @@ understand → research → doc → discuss → END
 - [Link 2]
 ```
 
-## Completion Checklist
-
-- [ ] **Understand phase completed** (know current architecture)
-- [ ] Research questions defined
-- [ ] Investigation completed
-- [ ] Findings documented
-- [ ] Recommendations made
-- [ ] Stakeholders consulted
-- [ ] Decision recorded
-- [ ] Next steps identified
-
 ## Transition to Implementation
 
 If research leads to implementation decision:
@@ -242,11 +188,5 @@ Study competing solutions
 
 ## Notes
 
-- Research workflow **does not produce code**
-- No testing, security, or PR phases
-- Output is documentation and knowledge
 - Use `/pencil` for diagrams and visualizations
 - Use `/cache` to store research data
-- Can transition to feature workflow if implementation needed
-- Always document sources and references
-- Include both pros and cons for balanced analysis

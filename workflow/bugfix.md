@@ -21,10 +21,6 @@ START
 understand → debug → coding → test → validate → secure → commit → pr → MERGE
 ```
 
-**First Step is Non-Negotiable:**
-1. `understand` - Build context, understand how the code currently works
-2. Then debug with full context
-
 ## Phase Details
 
 ### 0. Understand (Required First Step)
@@ -118,55 +114,6 @@ understand → debug → coding → test → validate → secure → commit → 
 - Update issue tracker
 - Notify stakeholders
 
-## Usage Example
-
-```bash
-# Start bugfix workflow
-/sdlc start bugfix "Fix user session timeout"
-
-# Step 1: Understand the codebase (MANDATORY)
-/sdlc understand auth/session
-# → Creates/reuses .sdlc/docs/arch/main/auth-session-arch.md
-# → Now you understand how sessions currently work
-
-# Step 2: Debug phase (with full context)
-/sdlc debug "Session expires after 5 minutes instead of 24h"
-# → Found: Missing refresh token logic in session middleware
-
-# Step 3: [Manual coding - implement fix]
-
-# Step 4: Run tests
-/sdlc test
-
-# Step 5: Validate fix
-/sdlc validate auth "Session timeout fixed"
-
-# Step 6: Security check
-/sdlc secure
-
-# Step 7: Commit fix
-/sdlc commit
-
-# Step 8: Create PR
-/sdlc pr
-
-# [Merge after review]
-```
-
-## Anti-Pattern: What NOT to Do
-
-```bash
-# ❌ BAD: Debugging without understanding
-/sdlc debug "Session timeout issue"
-# [Try to fix without understanding the session system]
-# → Likely to introduce new bugs or miss edge cases
-
-# ✅ GOOD: Understanding first, then debugging
-/sdlc understand auth/session  # Always first
-/sdlc debug "Session timeout"  # Now with full context
-# → Faster debugging, better fix, fewer side effects
-```
-
 ## Bug Report Template
 
 ```
@@ -195,19 +142,6 @@ Fix:
 [Description of the fix]
 ```
 
-## Completion Checklist
-
-- [ ] **Understand phase completed** (relevant architecture cache reviewed)
-- [ ] Bug root cause identified
-- [ ] Fix implemented
-- [ ] Regression tests added
-- [ ] All tests passing
-- [ ] Bug validated fixed
-- [ ] No regressions
-- [ ] Security scan clean
-- [ ] Committed with issue reference
-- [ ] PR created and merged
-
 ## Key Differences from Feature Workflow
 
 | Aspect | Feature | Bugfix |
@@ -220,10 +154,5 @@ Fix:
 
 ## Notes
 
-- **Understand phase is mandatory** - prevents "fixing one thing, breaking another"
-- Bugfix workflow is **faster** than feature workflow after understand phase
-- Uses debug instead of full research + spec (but still needs understand first)
-- Focus on minimal, targeted changes
-- Always add regression tests
 - Consider hotfix process for production bugs
 - Use `/doc`, `/cache` for documentation needs

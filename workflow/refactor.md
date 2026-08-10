@@ -20,14 +20,6 @@ START
 understand → spec → coding → test → DONE
 ```
 
-**Optional Tools** (call when needed):
-- `/sdlc cr` - Code review
-- `/sdlc secure` - Security scan
-- `/sdlc commit` - Commit changes
-- `/sdlc pr` - Create pull request
-
-**Core Principle**: Understand first, design, code, verify. Everything else is optional.
-
 ## Core Phases
 
 ### 1. Understand (Required)
@@ -91,30 +83,6 @@ Use these when needed, not by default:
 /sdlc pr
 ```
 - When ready to integrate changes
-
-## Usage Example
-
-```bash
-# Step 1: Understand current architecture
-/sdlc understand controllers
-# → Maps dependencies, data flow, integration points
-
-# Step 2: Create refactoring spec
-/sdlc spec "Extract service layer from controllers"
-# → Defines goals, new structure, migration plan
-
-# Step 3: Implement refactoring
-[Manual coding - extract services, update tests]
-
-# Step 4: Run tests
-/sdlc test
-# → Verifies all tests pass, behavior unchanged
-
-# Optional: When ready to integrate
-/sdlc cr      # Code review
-/sdlc commit  # Commit changes
-/sdlc pr      # Create pull request
-```
 
 ## Refactoring Categories
 
