@@ -191,10 +191,10 @@ Lines: 87% | Functions: 82% | Branches: 79%
 
 ## Test Output
 
-**Always save test results** to `.sdlc/docs/category-feature-date.test.md` where:
+**Always save test results** to `.sdlc/docs/{feature}.test.md` where:
 - `category` - Module/category (e.g., `auth`, `payment`, `user`)
 - `feature` - Feature description in kebab-case
-- `date` - Date in YYYYMMDD format
+- `date` - Date in frontmatter `date: YYYY-MM-DD`
 - `test` - Document type for test reports
 
 ## Best Practices
@@ -240,7 +240,7 @@ tests/
 ## State Integration
 
 - **Updates**: `sdlc.phase` = `test`
-- **Creates**: Test report in `.sdlc/docs/category-feature-date.test.md`
+- **Creates**: Test report in `.sdlc/docs/{feature}.test.md`
 - **Requires**: `coding` phase completed
 - **Next**: Proceed to `/sdlc validate` phase
 

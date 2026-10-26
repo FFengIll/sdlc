@@ -39,7 +39,7 @@ Performs active verification against harness specifications or user goals. Valid
    - If neither specified → Auto-detect from context
 
 2. **Load Validation Criteria**
-   - **Harness mode**: Read harness from `.sdlc/harness/*.md`
+   - **Harness mode**: Read harness from `.design/harness/*.md`
    - **Goal mode**: Parse user goal into testable criteria
    - **Auto mode**: Find relevant harness or ask user
 
@@ -50,7 +50,7 @@ Performs active verification against harness specifications or user goals. Valid
    - Document findings
 
 4. **Generate Validation Report**
-   - Save to `.sdlc/docs/category-feature-date.validate.md`
+   - Save to `.sdlc/docs/{feature}.validate.md`
    - Include test results, findings, and recommendations
    - Mark as PASSED/FAILED/PARTIAL
 
@@ -72,7 +72,7 @@ Validates implementation against a harness specification.
 /sdlc validate auth "auth-flow-invariants"
 ```
 
-1. Load harness: `.sdlc/harness/auth-flow-invariants-20240319.harness.md`
+1. Load harness: `.design/harness/auth-flow-invariants.harness.md`
 2. For each invariant:
    - Run related tests
    - Execute code paths
@@ -353,7 +353,7 @@ When no criteria specified, automatically detects what to validate.
 
 ## State Integration
 
-- **Creates**: Validation report in `.sdlc/docs/category-feature-date.validate.md`
+- **Creates**: Validation report in `.sdlc/docs/{feature}.validate.md`
 - **Reads**: Harness files, code, tests
 - **Updates**: `sdlc.phase` = `validate`
 - **References**: Harness, specs, test reports
@@ -387,12 +387,12 @@ When no criteria specified, automatically detects what to validate.
 
 ## Output Format
 
-Save validation reports to `.sdlc/docs/category-feature-date.validate.md`
+Save validation reports to `.sdlc/docs/{feature}.validate.md`
 
 **Example filenames**:
-- `auth-invariants-20240319.validate.md`
-- `login-goal-20240319.validate.md`
-- `payment-flow-20240319.validate.md`
+- `auth-invariants.validate.md`
+- `login-goal.validate.md`
+- `payment-flow.validate.md`
 
 ## Example Usage Scenarios
 
@@ -408,7 +408,7 @@ Save validation reports to `.sdlc/docs/category-feature-date.validate.md`
 /sdlc validate auth "authentication-invariants"
 
 # Review the validation report
-cat .sdlc/docs/validate/20260319-authentication-invariants-validation.md
+cat .sdlc/docs/authentication-invariants.validate.md
 ```
 
 ### Scenario 2: Validate User Goal
@@ -420,7 +420,7 @@ cat .sdlc/docs/validate/20260319-authentication-invariants-validation.md
 /sdlc validate reset "User can reset password via email"
 
 # Check if goal is met
-cat .sdlc/docs/validate/20260319-password-reset-validation.md
+cat .sdlc/docs/password-reset.validate.md
 ```
 
 ### Scenario 3: Continuous Validation

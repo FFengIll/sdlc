@@ -42,7 +42,7 @@ Creates high-value verification harnesses that capture usage flows, functional c
    - Dependency chains (traceability)
 
 3. **Write the Verification Harness**
-   - Save to `.sdlc/harness/category-feature-date.harness.md`
+   - Save to `.design/harness/{feature}.harness.md`
    - Focus on what MUST be true, not how it's implemented
    - Include complete dependency chains
    - Document both positive and negative cases
@@ -211,12 +211,12 @@ Actionable verification steps:
 
 ## Output Format
 
-Save harness to `.sdlc/harness/category-feature-date.harness.md`
+Save harness to `.design/harness/{feature}.harness.md`
 
 **Example filenames**:
-- `auth-flow-invariants-20240319.harness.md`
-- `payment-constraints-20240319.harness.md`
-- `sdlc-documentation-system-20240319.harness.md`
+- `auth-flow-invariants.harness.md`
+- `payment-constraints.harness.md`
+- `sdlc-documentation-system.harness.md`
 
 ## Best Practices
 
@@ -280,7 +280,7 @@ Use `understand` to analyze code before creating harness:
 
 ## State Integration
 
-- **Creates**: Verification harness in `.sdlc/harness/category-feature-date.harness.md`
+- **Creates**: Verification harness in `.design/harness/{feature}.harness.md`
 - **Reads**: Code files, reference docs, architecture cache
 - **Updates**: `sdlc.phase` = `harness`
 - **References**: Specs, research docs, architecture cache
@@ -293,11 +293,11 @@ Use `understand` to analyze code before creating harness:
 - [ ] All dependency chains are traceable
 - [ ] Negative cases are documented
 - [ ] Validation checklist is actionable
-- [ ] Harness saved to `.sdlc/harness/` with `.harness.md` suffix
+- [ ] Harness saved to `.design/harness/` with `.harness.md` suffix
 
 ## Example Output
 
-See `.sdlc/docs/harness/examples/` for full examples:
+See `.design/harness/examples/` for full examples:
 - `auth-flow-invariants-harness.md`
 - `payment-constraints-harness.md`
 - `data-layer-validation-harness.md`

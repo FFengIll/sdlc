@@ -1,6 +1,6 @@
 # Archive Skill
 
-The `/archive` skill manages SDLC documentation by moving older documents to the `.sdlc/docs/archive/` directory while preserving directory structure and metadata.
+The `/archive` skill manages SDLC documentation by moving older documents to each doc root's `archive/` directory (`.design/*/archive/`, `.research/archive/`, `.sdlc/docs/archive/`) while preserving directory structure and metadata.
 
 ## Usage
 
@@ -35,18 +35,10 @@ The `/archive` skill manages SDLC documentation by moving older documents to the
 ## Directory Structure
 
 ```
-docs/
-├── spec/          # Active specs
-├── research/      # Active research
-├── pencil/        # Active sketches
-├── understand/    # Active understanding docs
-├── arch/          # Active architecture docs
-└── archive/       # Archived documents
-    ├── spec/
-    ├── research/
-    ├── pencil/
-    ├── understand/
-    └── arch/
+.design/            # {name}.spec.md / {name}.pencil.md / arch/
+.research/          # {name}.md research
+.sdlc/docs/         # {name}.{type}.md reports (understand, …)
+└── archive/        # Archived documents (per root: .design/archive/, .research/archive/, .sdlc/docs/archive/)
 ```
 
 ## Auto-Archive by Month
@@ -62,8 +54,8 @@ When no pattern is specified, automatically archives documents from **last month
 ```
 
 **File pattern matching:**
-- Spec files: `YYYYMMDD-*` → extracts date for comparison
-- Research files: `YYYYMMDD-*` → extracts date for comparison
+- Spec files: read `date:` frontmatter for comparison
+- Research files: read `date:` frontmatter for comparison
 - Pencil files: `YYYY-MM-DD-*` → extracts date for comparison
 - Other files: Uses file modification time
 
@@ -117,8 +109,8 @@ Update `.sdlc/docs/archive/archive-log.json`:
       "reason": "Monthly cleanup",
       "files": [
         {
-          "original": ".sdlc/docs/spec/20260228-old-spec.md",
-          "archived": ".sdlc/docs/archive/spec/20260228-old-spec.md"
+          "original": ".design/old-spec.spec.md",
+          "archived": ".design/archive/old-spec.spec.md"
         }
       ]
     }
@@ -135,7 +127,7 @@ Each archived file gets a YAML frontmatter block:
 archived: true
 archived_at: 2026-03-09T10:00:00Z
 archived_reason: Monthly cleanup
-original_location: .sdlc/docs/spec/20260228-old-feature.md
+original_location: .design/old-feature.spec.md
 original_created_at: 2026-02-28
 archived_by: /archive
 ---
@@ -151,18 +143,18 @@ $ /archive research
 
 Auto-archive: documents from 2026-02 and older
 
-Found 3 files to archive in .sdlc/docs/research/:
-  ✓ 20260223-tingly-spec-extension.md
-  ✓ 20260115-oauth-research.md
-  ✓ 20260110-api-design.md
+Found 3 files to archive in .research/:
+  ✓ tingly-spec-extension.md
+  ✓ oauth-research.md
+  ✓ api-design.md
 
 Reason: Monthly cleanup (auto)
 
 Proceed? (y/n) y
 
-✓ Archived 20260223-tingly-spec-extension.md → .sdlc/docs/archive/research/
-✓ Archived 20260115-oauth-research.md → .sdlc/docs/archive/research/
-✓ Archived 20260110-api-design.md → .sdlc/docs/archive/research/
+✓ Archived tingly-spec-extension.md → .research/archive/
+✓ Archived oauth-research.md → .research/archive/
+✓ Archived api-design.md → .research/archive/
 
 Updated archive log: .sdlc/docs/archive/archive-log.json
 ```
@@ -171,9 +163,9 @@ Updated archive log: .sdlc/docs/archive/archive-log.json
 
 | File Pattern | Date Source | Example |
 |-------------|-------------|---------|
-| `YYYYMMDD-name.md` | Filename prefix | `20260228-feature.md` → 2026-02-28 |
+| `name.md` | Frontmatter `date:` | `date: 2026-02-28` → 2026-02-28 |
 | `YYYY-MM-DD-name.md` | Filename prefix | `2026-02-28-sketch.md` → 2026-02-28 |
-| `name-YYYYMMDD.md` | Filename suffix | `feature-20260228.md` → 2026-02-28 |
+| `name.md` | Frontmatter `date:` | same as above |
 | Other | File modification time | From `mtime` |
 
 ## Best Practices
@@ -237,8 +229,8 @@ Updated archive log: .sdlc/docs/archive/archive-log.json
 /archive spec "v1*" "Replaced by v2 architecture"
 
 # Moves:
-# .sdlc/docs/spec/v1-user-auth.md → .sdlc/docs/archive/spec/v1-user-auth.md
-# .sdlc/docs/spec/v1-api-design.md → .sdlc/docs/archive/spec/v1-api-design.md
+# .design/v1-user-auth.spec.md → .design/archive/v1-user-auth.md
+# .design/v1-api-design.spec.md → .design/archive/v1-api-design.md
 ```
 
 ### Example 3: Archive Completed Work
@@ -253,7 +245,7 @@ Updated archive log: .sdlc/docs/archive/archive-log.json
 /archive pencil "sdlc-v2*" "Replaced by v3 design"
 
 # Moves:
-# .sdlc/docs/pencil/2026-03-08-sdlc-v2-simplified.md → .sdlc/docs/archive/pencil/2026-03-08-sdlc-v2-simplified.md
+# .design/sdlc-v2-simplified.pencil.md → .design/archive/sdlc-v2-simplified.pencil.md
 ```
 
 ## Integration with SDLC
@@ -300,13 +292,13 @@ Pattern: 202602* (auto: last month)
 Reason:  Monthly cleanup
 
 Found 4 files:
-  ✓ 20260228-sdlc-skills-v3.md
-  ✓ 20260215-old-feature.md
-  ✓ 20260210-api-design-v1.md
-  ✓ 20260205-research-notes.md
+  ✓ sdlc-skills-v3.spec.md
+  ✓ old-feature.spec.md
+  ✓ api-design-v1.spec.md
+  ✓ research-notes.spec.md
 
 ─────────────────────────────
-Destination: .sdlc/docs/archive/spec/
+Destination: .design/archive/
 Proceed? (y/n)
 ```
 

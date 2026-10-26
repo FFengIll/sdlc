@@ -92,8 +92,8 @@ When called without arguments during an active SDLC workflow, `/handoff` automat
 | Source | Description | Default |
 |--------|-------------|---------|
 | `sdlc` | Workflow state from `.sdlc/state.json` | ✓ |
-| `arch` | Architecture cache from `.sdlc/docs/arch/` | ✓ |
-| `spec` | Spec documents from `.sdlc/docs/spec/` | ✗ |
+| `arch` | Architecture cache from `.design/arch/` | ✓ |
+| `spec` | Spec documents from `.design/*.spec.md` | ✗ |
 | `all` | All sources + research | ✗ |
 
 **Note**: Works even without SDLC workflow (requires explicit task).

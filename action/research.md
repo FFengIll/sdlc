@@ -155,4 +155,4 @@ The research phase helps ensure that specifications are grounded in thorough ana
 - Be specific in your research topic for better results
 - Mention any specific constraints (e.g., "for a small team" or "must be open source")
 - Research can be iterative - follow-up with deeper research on specific aspects
-- Save important research outputs to `.sdlc/docs/category-feature-date.research.md` for future reference
+- Save important research outputs to `.research/{feature}.md` for future reference

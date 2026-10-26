@@ -44,7 +44,7 @@ claude plugin install sdlc@sdlc-marketplace
         │
         ├─ fix|bug    → bugfix workflow   ─┐
         ├─ add|new    → feature workflow   │
-        ├─ refactor   → refactor workflow  ├─→ Execute Skill → .sdlc/docs/category-feature-date.type.md
+        ├─ refactor   → refactor workflow  ├─→ Execute Skill → .sdlc/docs/{feature}.{type}.md
         ├─ review|cr  → action:cr          │
         ├─ understand → understand(cache) ─┘
         └─ commit|pr  → action:commit
@@ -58,12 +58,12 @@ claude plugin install sdlc@sdlc-marketplace
         ▼
   Action Map
         │
-        ├─ understand → .sdlc/arch/overview-*.arch.md
-        ├─ spec       → .sdlc/docs/*.spec.md
-        ├─ coding     → .sdlc/docs/*.coding.md
-        ├─ test       → .sdlc/docs/*.test.md
-        ├─ commit     → .sdlc/docs/*.commit.md
-        └─ pr         → .sdlc/docs/*.pr.md
+        ├─ understand → .design/arch/overview-*.arch.md
+        ├─ spec       → .design/{feature}.spec.md
+        ├─ coding     → .sdlc/docs/{feature}.coding.md
+        ├─ test       → .sdlc/docs/{feature}.test.md
+        ├─ commit     → .sdlc/docs/{feature}.commit.md
+        └─ pr         → .sdlc/docs/{feature}.pr.md
 ```
 
 ## 3. Workflow Example: Feature Development
@@ -75,11 +75,11 @@ claude plugin install sdlc@sdlc-marketplace
   Feature Workflow:
   understand → research → spec → coding → test → commit → pr
       │            │        │       │       │       │       │
-   .sdlc/       .sdlc/   .sdlc/  .sdlc/  .sdlc/  .sdlc/  .sdlc/
-   arch/         docs/    docs/   docs/   docs/   docs/   docs/
-  overview-    auth-*   auth-*  auth-*  auth-*  auth-*  auth-*
-  *.arch.md   .research  .spec  .coding  .test  .commit   .pr
-               .md       .md     .md     .md     .md      .md
+   .design/    .research/ .design/ .sdlc/ .sdlc/  .sdlc/  .sdlc/
+   arch/          /       auth-*.  docs/   docs/   docs/   docs/
+  overview-   auth-*.md  spec.md  auth-*. auth-*  auth-*  auth-*
+  *.arch.md                      coding   .test  .commit   .pr
+                                          .md     .md     .md
 ```
 
   Interactive Flow:

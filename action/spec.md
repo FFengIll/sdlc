@@ -21,7 +21,7 @@ Creates detailed technical specification documents based on research findings an
    - Design the approach in your head first
 
 2. **Read Architecture Cache**
-   - Check `./.sdlc/arch/` for existing architecture cache
+   - Check `./.design/arch/` for existing architecture cache
    - Priority order: component → module → project overview
    - Use cached architecture info to reduce code searching and reading
    - If no relevant cache exists, generate it first with `/sdlc understand [scope]`
@@ -37,13 +37,13 @@ Creates detailed technical specification documents based on research findings an
 
 4. **Write the Spec Document**
    - Only after user confirms the proposal direction
-   - Save to `./.sdlc/docs/category-feature-date.spec.md`
+   - Save to `./.design/{feature}.spec.md`
    - Expand the proposal into a full spec with all relevant sections
    - Keep specs key-focused and guiding-oriented
    - Pay attention to model definitions and file/module/function abstractions
    - **IMPORTANT**: After creating file, display the path to user:
      ```
-     ✅ Spec file created: `.sdlc/docs/recording-impl-20260407.spec.md`
+     ✅ Spec file created: `.design/recording-impl.spec.md`
      ```
 
 5. **Output the Design**
@@ -61,13 +61,13 @@ Architecture cache speeds up spec creation by reusing existing understanding.
 
 Priority order (most specific first):
 ```bash
-.sdlc/arch/[module]-[sub]-[comp]-YYYYMMDD.arch.md  # Component (~3 days)
-.sdlc/arch/[module]-[sub]-YYYYMMDD.arch.md          # Sub-module (~7 days)
-.sdlc/arch/[module]-YYYYMMDD.arch.md                # Module (~14 days)
-.sdlc/arch/overview-YYYYMMDD.arch.md                # Project (~30 days)
+.design/arch/[module]-[sub]-[comp]-arch.md  # Component (~3 days)
+.design/arch/[module]-[sub]-arch.md          # Sub-module (~7 days)
+.design/arch/[module]-arch.md                # Module (~14 days)
+.design/arch/overview-arch.md                # Project (~30 days)
 ```
 
-**Note**: Arch files use simplified format `scope-date.arch.md` because the directory is already isolated.
+**Note**: Arch files use simplified format `scope-arch.md` because the directory is already isolated.
 
 ### Cache Freshness
 
@@ -78,22 +78,22 @@ TTL values are reference guidelines:
 
 If cache is expired or missing, regenerate using `/sdlc understand [scope]`.
 
-**See also**: `.sdlc/arch/ARCH_CACHE_SYSTEM.md` for full documentation
+**See also**: `.design/arch/ARCH_CACHE_SYSTEM.md` for full documentation
 
 ## Output Format
 
-Spec files are saved to `.sdlc/docs/category-feature-date.spec.md`
+Spec files are saved to `.design/{feature}.spec.md`
 
-**Filename format**: `category-feature-date.type.md`
+**Filename format**: `{feature}.spec.md` under `.design/` (date goes in frontmatter)
 - `category` - Module/category (e.g., `auth`, `payment`, `user`)
 - `feature` - Feature description in kebab-case (e.g., `user-login`, `oauth-integration`)
-- `date` - Date in YYYYMMDD format
+- `date` - Date in frontmatter `date: YYYY-MM-DD`
 - `type` - Document type (`spec` for specifications)
 
 **Examples**:
-- `auth-user-login-20240319.spec.md`
-- `payment-stripe-checkout-20240319.spec.md`
-- `user-profile-edit-20240319.spec.md`
+- `auth-user-login.spec.md`
+- `payment-stripe-checkout.spec.md`
+- `user-profile-edit.spec.md`
 
 Include:
 - Overview and scope
@@ -131,7 +131,7 @@ Include:
 - DO NOT make spec documents too long and verbose; keep them key-focused
 - **ALWAYS display the file path after creating/updating the spec document**
 - **Include file path in AskUserQuestion when asking user to review or approve**
-- Format: `✅ Spec file: `.sdlc/docs/category-feature-date.spec.md``
+- Format: `✅ Spec file: `.design/{feature}.spec.md``
 
 ## Examples
 
@@ -139,15 +139,15 @@ Include:
 
 ```bash
 /sdlc spec "Add OAuth to Auth"
-# Reads .sdlc/docs/arch/auth-arch.md for context
-# Writes .sdlc/docs/auth-oauth-integration-20240319.spec.md
+# Reads .design/arch/auth-arch.md for context
+# Writes .design/auth-oauth-integration.spec.md
 ```
 
 ### Example 2: Feature Requiring New Cache
 
 ```bash
 /sdlc understand auth/providers    # Create cache first
-/sdlc spec "Add SAML Provider"     # Then write spec as auth-saml-provider-20240319.spec.md
+/sdlc spec "Add SAML Provider"     # Then write spec as auth-saml-provider.spec.md
 ```
 
 ## Integration

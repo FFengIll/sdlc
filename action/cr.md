@@ -153,28 +153,28 @@ Deep dive into a specific concern.
 - [ ] All review categories assessed
 - [ ] Issues numbered with severity levels
 - [ ] No 🚨 Critical issues (blocking)
-- [ ] Report saved to `.sdlc/docs/category-feature-date.cr.md`
+- [ ] Report saved to `.sdlc/docs/{feature}.cr.md`
 - [ ] Code approved (PASS)
 
 ### Post-Commit Review
 - [ ] Specified focus area assessed
 - [ ] Key findings documented
-- [ ] Report saved to `.sdlc/docs/category-feature-date.cr.md`
+- [ ] Report saved to `.sdlc/docs/{feature}.cr.md`
 
 ### Targeted Review
 - [ ] Focus area deeply assessed
 - [ ] Specific findings with recommendations
-- [ ] Report saved to `.sdlc/docs/category-feature-date.cr.md`
+- [ ] Report saved to `.sdlc/docs/{feature}.cr.md`
 
 ## State Integration
 
 **Pre-PR Review** (workflow phase):
 - **Updates**: `sdlc.phase` = `cr`
-- **Creates**: Code review report in `.sdlc/docs/category-feature-date.cr.md`
+- **Creates**: Code review report in `.sdlc/docs/{feature}.cr.md`
 - **Requires**: `secure` phase completed
 - **Next**: Proceed to `/sdlc commit` phase
 
 **Post-Commit / Targeted Review** (standalone):
-- **Creates**: Code review report in `.sdlc/docs/category-feature-date.cr.md`
+- **Creates**: Code review report in `.sdlc/docs/{feature}.cr.md`
 - **No state updates**: Can be run anytime
 

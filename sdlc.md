@@ -55,16 +55,29 @@ Software Development Lifecycle management with intelligent intent detection and 
 # Key Behaviors
 
 - `explore/explain/how does` → read and explain inline, no skill invoked
-- `understand/analyze architecture` → `action:understand` (creates `.sdlc/arch/` cache)
+- `understand/analyze architecture` → `action:understand` (creates `.design/arch/` cache)
 - `review/check/find issues` → `action:cr` (creates `*.cr.md`)
 
 ## Output Structure
 
 ```
+.design/          # design artifacts — type is the filename suffix
+├── {feature}.spec.md
+├── {name}.pencil.md
+├── arch/         # {scope}-arch.md cache
+├── harness/      # {feature}.harness.md
+└── archive/
+.research/        # {feature}.md research outputs
 .sdlc/
-├── docs/      # category-feature-date.type.md
-├── harness/   # verification harnesses
-└── arch/      # architecture cache
+└── docs/         # {feature}.{type}.md reports (test/cr/debug/validate/secure/compare/understand)
 ```
 
-**IMPORTANT:** `.sdlc` folder should be placed under the user's coding project path.
+**IMPORTANT:** These folders are placed under the user's coding project path (cwd).
+
+**Filenames never contain dates.** Every generated markdown file records the date in its header frontmatter instead:
+
+```markdown
+---
+date: 2026-10-26
+---
+```

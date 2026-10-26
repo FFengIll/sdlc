@@ -31,7 +31,7 @@ understand → clarify → spec → test → coding → review → test → comm
 /sdlc understand [scope]
 ```
 - Build context of the codebase architecture
-- Create or reuse architecture cache in `.sdlc/docs/arch/`
+- Create or reuse architecture cache in `.design/arch/`
 - Identify relevant components and integration points
 - **Do not skip this step!**
 

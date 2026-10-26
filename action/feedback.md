@@ -28,7 +28,7 @@ Collect user feedback on skill execution quality, gather improvement suggestions
 First, gather execution context:
 - **Current conversation**: What task was just completed?
 - **Skill executed**: Which skill or workflow was used?
-- **Output files**: What documents were created? (Check `.sdlc/docs/`, `.sdlc/arch/`, etc.)
+- **Output files**: What documents were created? (Check `.sdlc/docs/`, `.design/arch/`, etc.)
 - **User interactions**: How many questions were asked? Were they helpful?
 
 ### 2. Interactive Feedback Collection

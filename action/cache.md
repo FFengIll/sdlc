@@ -20,12 +20,12 @@ The `/cache` skill manages SDLC workflow state and cached architecture documenta
 
 ### Overview
 
-Architecture documentation is cached in `.sdlc/docs/arch/` to avoid repeated code analysis during SDLC workflow. See [ARCH_CACHE_SYSTEM.md](../../.sdlc/docs/arch/ARCH_CACHE_SYSTEM.md) for full documentation.
+Architecture documentation is cached in `.design/arch/` to avoid repeated code analysis during SDLC workflow. See `ARCH_CACHE_SYSTEM.md` in `.design/arch/` for full documentation.
 
 ### Cache Structure
 
 ```
-.sdlc/docs/arch/
+.design/arch/
 ├── main/                         # Branch-aware caches
 │   ├── overview-arch.md
 │   ├── [module]-arch.md
@@ -39,35 +39,35 @@ Architecture documentation is cached in `.sdlc/docs/arch/` to avoid repeated cod
 
 **Priority Order (most specific first):**
 
-1. **Component**: `.sdlc/docs/arch/{branch}/[module]/[sub]-arch.md` (12h TTL)
-2. **Module**: `.sdlc/docs/arch/{branch}/[module]-arch.md` (3d TTL)
-3. **Project**: `.sdlc/docs/arch/{branch}/overview-arch.md` (7d TTL)
-4. **Fallback**: `.sdlc/docs/arch/main/[file].md` (if branch cache missing)
+1. **Component**: `.design/arch/{branch}/[module]/[sub]-arch.md` (12h TTL)
+2. **Module**: `.design/arch/{branch}/[module]-arch.md` (3d TTL)
+3. **Project**: `.design/arch/{branch}/overview-arch.md` (7d TTL)
+4. **Fallback**: `.design/arch/main/[file].md` (if branch cache missing)
 
 **Examples:**
 
 ```bash
 # For auth module work
-.sdlc/docs/arch/feature-a/auth/login/oauth-arch.md  # Most specific
-.sdlc/docs/arch/feature-a/auth/login-arch.md
-.sdlc/docs/arch/feature-a/auth-arch.md
-.sdlc/docs/arch/main/auth-arch.md                  # Fallback to main
+.design/arch/feature-a/auth/login/oauth-arch.md  # Most specific
+.design/arch/feature-a/auth/login-arch.md
+.design/arch/feature-a/auth-arch.md
+.design/arch/main/auth-arch.md                  # Fallback to main
 
 # Use glob to find relevant cache
-.sdlc/docs/arch/**/*-arch.md
-.sdlc/docs/arch/auth-arch.md
-.sdlc/docs/arch/auth/**/*-arch.md
-.sdlc/docs/arch/main/*-arch.md                     # Explicit main branch
+.design/arch/**/*-arch.md
+.design/arch/auth-arch.md
+.design/arch/auth/**/*-arch.md
+.design/arch/main/*-arch.md                     # Explicit main branch
 ```
 
 ### Cache Levels
 
 | Level         | Pattern                           | TTL    | Example                                        | Use Case                 |
 | ------------- | --------------------------------- | ------ | ---------------------------------------------- | ------------------------ |
-| **Project**   | `overview-arch.md`                | 7 days | `.sdlc/docs/arch/overview-arch.md`             | Whole project context    |
-| **Module**    | `[module]-arch.md`                | 3 days | `.sdlc/docs/arch/auth-arch.md`                 | Feature work on module   |
-| **Component** | `[module]/[sub]-arch.md`          | 1 day  | `.sdlc/docs/arch/auth/login-arch.md`           | Deep dive into component |
-| **Detailed**  | `[module]/[sub]/[detail]-arch.md` | 12h    | `.sdlc/docs/arch/auth/providers/oauth-arch.md` | Detailed analysis        |
+| **Project**   | `overview-arch.md`                | 7 days | `.design/arch/overview-arch.md`             | Whole project context    |
+| **Module**    | `[module]-arch.md`                | 3 days | `.design/arch/auth-arch.md`                 | Feature work on module   |
+| **Component** | `[module]/[sub]-arch.md`          | 1 day  | `.design/arch/auth/login-arch.md`           | Deep dive into component |
+| **Detailed**  | `[module]/[sub]/[detail]-arch.md` | 12h    | `.design/arch/auth/providers/oauth-arch.md` | Detailed analysis        |
 
 ### Cache File Format
 
@@ -104,7 +104,7 @@ When generating cache:
 
 1. **Determine appropriate level** based on scope
 2. **Generate architecture documentation**
-3. **Save with naming convention**: `[YYYYMMDD]-[scope]-arch.md`
+3. **Save with naming convention**: `[scope]-arch.md` (date in frontmatter)
 4. **Update metadata** in `cache-metadata.json`
 5. **Include hash** for change detection
 
@@ -119,7 +119,7 @@ if [ $(($(date +%s) - cache_timestamp)) -gt $((ttl_seconds)) ]; then
 fi
 
 # Compare git hash within branch context
-cached_hash=$(grep "Hash:" .sdlc/docs/arch/{branch}/module-arch.md)
+cached_hash=$(grep "Hash:" .design/arch/{branch}/module-arch.md)
 current_hash=$(git rev-parse HEAD)
 current_branch=$(git branch --show-current)
 if [ "$cached_hash" != "$current_hash" ]; then
@@ -170,7 +170,7 @@ fi
 1. **Before writing spec**:
    ```bash
    # Check for relevant arch cache
-   glob(".sdlc/docs/arch/*-arch.md")
+   glob(".design/arch/*-arch.md")
 
    # Read most specific cache available
    # Use cached info for design decisions
@@ -179,7 +179,7 @@ fi
 2. **After understanding**:
    ```bash
    # Generate or update arch cache
-   # Save to .sdlc/docs/arch/[timestamp]-[scope]-arch.md
+   # Save to .design/arch/[scope]-arch.md (date in frontmatter)
    ```
 
 ### Understand Phase
@@ -200,7 +200,7 @@ fi
 
 ```bash
 # 1. Check for auth module cache
-cat .sdlc/docs/arch/auth-arch.md
+cat .design/arch/auth-arch.md
 
 # 2. If fresh (within 3 days), use it
 # 3. If stale or missing, generate new
@@ -214,7 +214,7 @@ cat .sdlc/docs/arch/auth-arch.md
 
 ```bash
 # 1. Check for specific component cache
-cat .sdlc/docs/arch/auth/login-arch.md
+cat .design/arch/auth/login-arch.md
 
 # 2. Understand flow from cache
 # 3. Debug the issue
@@ -227,14 +227,14 @@ cat .sdlc/docs/arch/auth/login-arch.md
 
 ```bash
 # Most specific first
-if [ -f ".sdlc/docs/arch/auth/login/oauth-arch.md" ]; then
-    cat .sdlc/docs/arch/auth/login/oauth-arch.md
-elif [ -f ".sdlc/docs/arch/auth/login-arch.md" ]; then
-    cat .sdlc/docs/arch/auth/login-arch.md
-elif [ -f ".sdlc/docs/arch/auth-arch.md" ]; then
-    cat .sdlc/docs/arch/auth-arch.md
+if [ -f ".design/arch/auth/login/oauth-arch.md" ]; then
+    cat .design/arch/auth/login/oauth-arch.md
+elif [ -f ".design/arch/auth/login-arch.md" ]; then
+    cat .design/arch/auth/login-arch.md
+elif [ -f ".design/arch/auth-arch.md" ]; then
+    cat .design/arch/auth-arch.md
 else
-    cat .sdlc/docs/arch/overview-arch.md
+    cat .design/arch/overview-arch.md
 fi
 ```
 
@@ -263,7 +263,7 @@ fi
 
 ## Completion Criteria
 
-- [ ] Architecture cache directory created (`.sdlc/docs/arch/`)
+- [ ] Architecture cache directory created (`.design/arch/`)
 - [ ] Multi-level cache format defined
 - [ ] TTL-based freshness control working
 - [ ] Hash-based invalidation working
@@ -283,5 +283,5 @@ fi
 
 ## References
 
-- [ARCH_CACHE_SYSTEM.md](../../.sdlc/docs/arch/ARCH_CACHE_SYSTEM.md) - Full cache system documentation
+- `ARCH_CACHE_SYSTEM.md` in `.design/arch/` - Full cache system documentation
 - [spec.md](../../commands/spec.md) - Integration with spec command

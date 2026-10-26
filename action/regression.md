@@ -55,7 +55,7 @@ Performs detailed regression testing to ensure branch changes don't break existi
    - Validate edge cases
 
 5. **Generate Comparison Report**
-   - Save to `.sdlc/docs/category-feature-date.compare.md`
+   - Save to `.sdlc/docs/{feature}.compare.md`
    - Include findings, risks, and recommendations
    - Mark status as SAFE/CAUTION/UNSAFE
 
@@ -455,14 +455,14 @@ npm run e2e
 - [ ] Logical consistency verified
 - [ ] Functional regression checked
 - [ ] Risk assessment completed
-- [ ] Report saved to `.sdlc/docs/category-feature-date.compare.md`
+- [ ] Report saved to `.sdlc/docs/{feature}.compare.md`
 - [ ] Status determined (SAFE/CAUTION/UNSAFE)
 - [ ] Recommendations provided
 
 ## State Integration
 
 **Standalone Use:**
-- **Creates**: Comparison report in `.sdlc/docs/category-feature-date.compare.md`
+- **Creates**: Comparison report in `.sdlc/docs/{feature}.compare.md`
 - **No state updates**: Can be run anytime on any branches
 
 **Pre-Merge Check:**
@@ -491,7 +491,7 @@ git checkout -b feature/auth
 /sdlc compare
 
 # Review report
-cat .sdlc/docs/feature-auth-compare-20260408.compare.md
+cat .sdlc/docs/auth-regression.compare.md
 
 # Fix issues if needed
 # ... fix breaking changes ...
